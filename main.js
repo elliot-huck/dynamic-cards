@@ -2,8 +2,9 @@ const createButton = document.querySelector("#create");
 const outputDiv = document.querySelector("#output");
 
 const createCard = () => {
-  let textInput = document.querySelector("#input").value;
-  let newCard = document.createElement("div");
+  const textInput = document.querySelector("#input").value;
+  const newCard = document.createElement("div");
+  const firstChild = outputDiv.firstElementChild;
   newCard.className = "card";
   newCard.innerHTML = `
     <input type="color">
@@ -11,8 +12,11 @@ const createCard = () => {
     <p>${textInput}</p>
     <button class="delete">Delete</button>
   `;
-  outputDiv.appendChild(newCard);
-
+  if (outputDiv.firstElementChild === null) {
+    outputDiv.appendChild(newCard);
+  } else {
+    outputDiv.insertBefore(newCard, firstChild);
+  }
 }
 
 createButton.addEventListener("click", createCard);
