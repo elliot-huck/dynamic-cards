@@ -9,8 +9,8 @@ const createCard = () => {
   // creates the card
   newCard.className = "card";
   newCard.innerHTML = `
-    <input type="color" class="background-color">
-    <input type="color" class="text-color">
+    <input type="color" class="background-color" value="#ffffff">Background color
+    <input type="color" class="text-color" value="#000000">Text color
     <p>${textInput}</p>
     <button class="delete">Delete</button>
   `;
@@ -23,13 +23,26 @@ const createCard = () => {
   }
 
   // adds function deleteCard to the delete button
-  newCard.querySelector(".delete").addEventListener("click", deleteCard)
+  newCard.querySelector(".delete").addEventListener("click", deleteCard);
   
+  // adds functions to the color inputs
+  newCard.querySelector(".background-color").addEventListener("input", setBackgroundColor);
+  newCard.querySelector(".text-color").addEventListener("input", setTextColor);
 }
 
 const deleteCard = function() {
   const parentCard = this.parentNode;
   outputDiv.removeChild(parentCard);
+}
+
+const setBackgroundColor = function() {
+  const parentCard = this.parentNode;
+  parentCard.style.backgroundColor = this.value;
+}
+
+const setTextColor = function() {
+  const cardText = this.nextElementSibling;
+  cardText.style.color = this.value;
 }
 
 createButton.addEventListener("click", createCard);
