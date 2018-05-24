@@ -9,10 +9,16 @@ const createCard = () => {
   // creates the card
   newCard.className = "card";
   newCard.innerHTML = `
-    <input type="color" class="background-color" value="#ffffff">Background color
-    <input type="color" class="text-color" value="#000000">Text color
-    <p>${textInput}</p>
-    <button class="delete">Delete</button>
+    <div class="color-fields">
+      Background color: <input type="color" class="background-color" value="#ffffff">
+    </div>
+    <div class="color-fields">
+      Text color: <input type="color" class="text-color" value="#000000">
+    </div>
+    <div class="text-input">${textInput}</div>
+    <div class="delete-bar">
+      <button class="delete">X</button>
+    <div>
   `;
 
   // inserts the newest card at the beginning of the outputDiv
@@ -31,18 +37,20 @@ const createCard = () => {
 }
 
 const deleteCard = function() {
-  const parentCard = this.parentNode;
+  const parentCard = this.parentNode.parentNode;
   outputDiv.removeChild(parentCard);
 }
 
 const setBackgroundColor = function() {
-  const parentCard = this.parentNode;
-  parentCard.style.backgroundColor = this.value;
+  const parentCard = this.parentNode.parentNode;
+  const textInput = parentCard.querySelector(".text-input");
+  textInput.style.backgroundColor = this.value;
 }
 
 const setTextColor = function() {
-  const cardText = this.nextElementSibling;
-  cardText.style.color = this.value;
+  const parentCard = this.parentNode.parentNode;
+  const textInput = parentCard.querySelector(".text-input");
+  textInput.style.color = this.value;
 }
 
 createButton.addEventListener("click", createCard);
